@@ -153,11 +153,11 @@ def start_screen():
     sloj = menu.add.selector('Сложность:', [('Легко', 1), ('Средне', 2), ('Сложно', 3)], onchange=set_difficulty)
     menu.add.button('Играть', start_the_game)
     menu.add.button('Выход', pygame_menu.events.EXIT)
-    if sloj == 'Легко':
+    if sloj[1]:
         slojnost = 5000
-    elif sloj == 'Средне':
+    elif sloj[2]:
         slojnost = 3500
-    elif sloj == 'Сложно':
+    elif sloj[3]:
         slojnost = 2000
     print(slojnost, sloj)
     menu.mainloop(surface)
