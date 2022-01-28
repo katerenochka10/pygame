@@ -33,6 +33,7 @@ f.seek(0)
 f.write('\n'.join([''.join(i) for i in pole]))
 f.close()
 
+
 def load_level(filename):
     filename = "data/" + filename
     # читаем уровень, убирая символы перевода строки
@@ -97,7 +98,6 @@ def start_screen():
                 return None
             return cell_x, cell_y
 
-
         # Начало игры
         global x, y, ch, ch1, result
         f = open('data/map.txt', 'w+')
@@ -126,7 +126,7 @@ def start_screen():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         if get_click(event.pos) == (y, x):
                             ch += 1
-                            ch1 += 1 # K_ESCAPE
+                            ch1 += 1  # K_ESCAPE
                             random_zvezdonos()
                             pygame.time.set_timer(MYEVENTTYPE, slojnost)
                             pygame.display.flip()
@@ -170,6 +170,22 @@ tile_images = {
 player_image = load_image('mar.png')
 
 tile_width = tile_height = 50
+end = pygame_menu.Menu('Игра закончена ', 500, 500,
+                       theme=pygame_menu.themes.THEME_GREEN)
+
+score_player = str(8)
+name_player = "lnnnj"
+end.add.label('Ваш счёт: ', score_player)
+end.add.label('Спасибо за игру, ', name_player)
+
+df = pd.read_csv(Igroki_s_reytingom, sep='\t')
+we_add = pd.write_csv['name': name_player, 'score': score_player]
+c = df['name']['score'].sort_values(ascending=False).head(3)
+
+end.add.button('Вернуться в меню', begining)
+end.add.button('Выход', pygame_menu.events.EXIT)
+
+end.mainloop(surface)
 
 
 class Tile(pygame.sprite.Sprite):
@@ -211,5 +227,6 @@ def generate_level(level):
                 new_player = Player(x, y)
     # вернем игрока, а также размер поля в клетках
     return new_player, x, y
+
 
 start_screen()
